@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+            <!-- About Area Start Here -->
+        <section class="s-space-bottom-full bg-accent-shadow-body">
+            <div class="container">
+                <div class="breadcrumbs-area">
+                    <ul>
+                        <li><a href="{% url 'home_url' %}">Главная</a> -</li>
+                        <li><a href="#">Блог</a> -</li>
+                        <li class="active">{{ post.title }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    {% for post in posts %}
+                    <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12 mb--sm">
+                        <div class="gradient-wrapper">
+                            <div class="gradient-title">
+                                <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                            </div>
+                            <div class="about-us gradient-padding">
+                                {{ post.description|truncatechars:200 }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="sidebar-item-box">
+                            <ul class="sidebar-more-option">
+                                <li>
+                                    <a href="post-ad.html"><img src="img/banner/more1.png" alt="more" class="img-fluid">Post a Free Ad</a>
+                                </li>
+                                <li>
+                                    <a href="about.html#"><img src="img/banner/more2.png" alt="more" class="img-fluid">Manage Product</a>
+                                </li>
+                                <li>
+                                    <a href="favourite-ad-list.html"><img src="img/banner/more3.png" alt="more" class="img-fluid">Favorite Ad list</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebar-item-box">
+                            <img src="img/banner/sidebar-banner1.jpg" alt="banner" class="img-fluid m-auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About Area End Here -->
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block seo_title %}{{ category.title }}{% endblock %}
+{% block seo_description %}Объявления из категории - {{ category.title }}{% endblock %}
+
+{% block content %}
+        {% include 'includes/search.html' %}
+        <!-- Category Grid View Start Here -->
+        <section class="s-space-bottom-full bg-accent-shadow-body">
+            <div class="container">
+                <div class="breadcrumbs-area">
+                    <ul>
+                        <li><a href="{% url 'home_url' %}">Главная</a> -</li>
+                        <li class="active">{{ category.title }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="order-xl-2 order-lg-2 col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="gradient-wrapper item-mb">
+                            <div class="gradient-title">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <h2>{{ category.title }}</h2>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="layout-switcher">
+                                            <ul>
+                                                <li>
+                                                    <div class="page-controls-sorting">
+                                                        <button class="sorting-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Сортировать по<i class="fa fa-sort" aria-hidden="true"></i></button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="category-grid-layout2.html#">Дате</a>
+                                                            <a class="dropdown-item" href="category-grid-layout2.html#">Низкой цене</a>
+                                                            <a class="dropdown-item" href="category-grid-layout2.html#">Популярности</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="active"><a href="category-grid-layout2.html#" data-type="category-grid-layout2" class="product-view-trigger"><i class="fa fa-th-large"></i></a></li>
+                                                <li><a href="category-grid-layout2.html#" data-type="category-list-layout2" class="product-view-trigger"><i class="fa fa-list"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="category-view" class="category-grid-layout2 gradient-padding zoom-gallery">
+                                <div class="row">
+                                    {% for classified in classifieds %}
+                                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 col-12">
+                                        <div class="product-box item-mb zoom-gallery">
+                                            <div class="item-mask-wrapper">
+                                                <div class="item-mask secondary-bg-box"><img src="{{ classified.images.first.get_src }}" alt="categories" class="img-fluid">
+                                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                                    <div class="title-ctg">{{ classified.category }}</div>
+                                                    <ul class="info-link">
+                                                        <li><a href="{{ classified.images.first.get_src }}" class="elv-zoom" data-fancybox-group="gallery" title="{{ classified.title }}"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                                        <li><a href="{{ classified.get_absolute_url }}"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                    <div class="symbol-featured"><img src="{{ classified.images.first.get_src }}" alt="symbol" class="img-fluid"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="item-content">
+                                                <div class="title-ctg">{{ classified.category }}</div>
+                                                <h3 class="short-title"><a href="{{ classified.get_absolute_url }}">{{ classified.title }}</a></h3>
+                                                <h3 class="long-title"><a href="{{ classified.get_absolute_url }}">{{ classified.title }}</a></h3>
+                                                <ul class="upload-info">
+                                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{ classified.create_date|date:"d, M  Y"  }}</li>
+                                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>{{ classified.price }} ₽</li>
+                                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>{{ classified.category }}</li>
+                                                </ul>
+                                                <p>{{ classified.description|truncatechars:100}}</p>
+                                                <div class="price">{{ classified.price }}</div>
+                                                <a href="{{ classified.get_absolute_url }}" class="product-details-btn">Подробнее</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gradient-wrapper mb-60">
+                            <ul class="cp-pagination">
+                                {% if classifieds.has_previous %}
+                                    <li><a href="?page={{ classifieds.previous_page_number }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Предыдущая страница</a></li>
+                                {% else %}
+                                    <li class="disabled"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Предыдущая страница</li>
+                                {% endif %}
+                                {% for p in page_range %}
+                                    {% if p == classifieds.number %}
+                                        <li class="active"><a href="?page={{ p }}">{{ p }}</a></li>
+                                    {% else %}
+                                        <li><a href="?page={{ p }}">{{ p }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if classifieds.has_next %}
+                                    <li><a href="?page={{ classifieds.next_page_number }}">Следующая страница<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                {% else %}
+                                    <li class="disabled">Следующая страница<i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-lg-7 col-md-7 col-sm-12 col-12">
+                                <div class="add-layout2-left d-flex align-items-center">
+                                    <div>
+                                        <h2>Do you Have Something To Sell?</h2>
+                                        <h3>Post your ad on classipost.com</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+                                <div class="add-layout2-right d-flex align-items-center justify-content-end mb--sm">
+                                    <a href="category-grid-layout2.html#" class="cp-default-btn-sm-primary">Post Your Ad Now!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% include 'includes/sidebar.html' %}
+                </div>
+            </div>
+        </section>
+        <!-- Category Grid View End Here -->
+{% endblock %}

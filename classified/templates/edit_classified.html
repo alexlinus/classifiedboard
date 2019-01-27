@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block seo_title %}Добавить объявление{% endblock %}
+{% block seo_description %}Вы можете добавить своё объявление абсолютно бесплатно и на всегда!{% endblock %}
+
+{% block content %}
+        {% include 'includes/search.html' %}
+        <!-- Post Ad Page Start Here -->
+        <section class="s-space-bottom-full bg-accent-shadow-body">
+            <div class="container">
+                <div class="breadcrumbs-area">
+                    <ul>
+                        <li><a href="{% url 'home_url' %}">Главная</a> -</li>
+                        <li class="active">Опубликовать объявление</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-12 mb--sm">
+                        <div class="gradient-wrapper">
+                            <div class="gradient-title">
+                                {% if user.is_authenticated %}
+                                    <h2>Опубликовать объявление</h2>
+                                {% else %}
+                                    <h2>Извините, но вы не авторизованы</h2>
+                                {% endif %}
+                            </div>
+                            <div class="input-layout1 gradient-padding post-ad-page">
+                            {% if user.is_authenticated %}
+									<form action="{% url 'edit_classified_url'  classified.slug %}" method="POST" id="post-add-form" enctype="multipart/form-data">
+                                        {% csrf_token %}
+
+                                        {% for field in form %}
+                                             <div class="form-group">
+                                                {{ field.label_tag }}
+                                                {{ field.error_messages }}
+                                                {{ field }}
+                                            </div>
+                                        {% endfor %}
+                                        {% for field in formset %}
+                                             <div class="form-group">
+                                                {{ field }}
+
+                                            </div>
+                                        {% endfor %}
+                                        <input type="submit" class="cp-default-btn-sm" value="Опубликовать">
+                                    </form>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                        <div class="sidebar-item-box">
+                            <img src="img/banner/sidebar-banner1.jpg" alt="banner" class="img-fluid m-auto">
+                        </div>
+                        <div class="sidebar-item-box">
+                            <div class="gradient-wrapper">
+                                <div class="gradient-title">
+                                    <h3>How To Sell Quickly?</h3>
+                                </div>
+                                <ul class="sidebar-sell-quickly">
+                                    <li><a href="faq.html">Use a brief title and description of the item.</a></li>
+                                    <li><a href="faq.html">Make sure you post in the correct category</a></li>
+                                    <li><a href="faq.html">Add nice photos to your ad</a></li>
+                                    <li><a href="faq.html">Put a reasonable price</a></li>
+                                    <li><a href="faq.html">Check the item before publish</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Post Ad Page End Here -->
+{% endblock %}

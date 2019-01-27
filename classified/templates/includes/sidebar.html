@@ -1,0 +1,38 @@
+ {% load static %}
+                    <div class="order-xl-1 order-lg-1 col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="category-menu-layout2 bg-body">
+                            <h3>Categories</h3>
+                            <ul class="sidebar-category-list">
+                                {% for category in categories %}
+                                <li>
+                                    <a href="{{ category.get_absolute_url }}">{{ category.title }} <span>({{ category.category_classifieds.all.count }})</span></a>
+                                </li>
+                                {% endfor %}
+                                <!--
+                                <li>
+                                    <a href="category-grid-layout2.html"><img src="{% static 'img/product/ctg2.png' %}" alt="category" class="img-fluid">Fashin &amp; Life Style<span>(20)</span></a>
+                                </li>
+                                <li>
+                                    <a href="category-grid-layout3.html"><img src="{% static 'img/product/ctg3.png' %}" alt="category" class="img-fluid">Car &amp; Vehicles<span>(50)</span></a>
+                                </li>
+                                <li>
+                                    <a href="category-list-layout1.html"><img src="{% static 'img/product/ctg4.png' %}" alt="category" class="img-fluid">Hobby, Sport &amp; Kids<span>(20)</span></a>
+                                </li>
+                                <li>
+                                    <a href="category-list-layout2.html"><img src="{% static 'img/product/ctg5.png' %}" alt="category" class="img-fluid">Pets &amp; Animals<span>(100)</span></a>
+                                </li>
+                                <li>
+                                    <a href="category-list-layout3.html"><img src="{% static 'img/product/ctg6.png' %}" alt="category" class="img-fluid">Overseas Jobs<span>(70)</span></a>
+                                </li>
+                                <li>
+                                    <a href="category-grid-layout1.html"><img src="{% static 'img/product/ctg7.png' %}" alt="category" class="img-fluid">Property<span>(90)</span></a>
+                                </li>
+                                <li>
+                                    <a href="category-grid-layout2.html"><img src="{% static 'img/product/ctg8.png' %}" alt="category" class="img-fluid">Education<span>(30)</span></a>
+                                </li>
+                                <li>
+                                    <a href="category-list-layout3.html"><img src="{% static 'img/product/ctg12.png' %}" alt="category" class="img-fluid">Others<span>(150)</span></a>
+                                </li> --->
+                            </ul>
+                        </div>
+                    </div>

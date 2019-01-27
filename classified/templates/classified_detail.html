@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}{{ classified.seo_title }}{% endblock %}
+{% block seo_description %}{{ classified.seo_description }}{% endblock %}
+
+{% block content %}
+        {% include 'includes/search.html' %}
+        <!-- Product Area Start Here -->
+        <section class="s-space-bottom-full bg-accent-shadow-body">
+            <div class="container">
+                <div class="breadcrumbs-area">
+                    <ul>
+                        <li><a href="{% url 'home_url' %}">Главная</a> -</li>
+                        <li><a href="{{ classified.category.get_absolute_url }}">{{ classified.category.title }}</a> -</li>
+                        <li class="active">{{ classified.title }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="gradient-wrapper item-mb">
+                            <div class="gradient-title">
+                                <h2>{{ classified.title }}</h2>
+                            </div>
+                            <div class="gradient-padding reduce-padding">
+                                <div class="single-product-img-layout1 d-flex mb-50">
+                                    <ul class="nav tab-nav tab-nav-list">
+                                    <!-- https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#for Перебрал элементы словаря через ключ и значение, см докумеентацию. До этого добавив изображения в словарь.  dict.items() - возвращает пары (ключ, значение у словаря). Поэтому использовал items функцию -->
+                                        {% for key, value in item_images.items %}
+                                            {% if key == 1 %}
+                                                <li class="nav-item">
+                                                     <a class="active" href="#related{{ key }}" data-toggle="tab" aria-expanded="false"><img alt="related{{ key }}" src="{{ value }}" class="img-fluid"></a>
+                                                </li>
+                                            {% else %}
+                                            <li class="nav-item">
+                                                <a href="#related{{ key }}" data-toggle="tab" aria-expanded="false"><img alt="related{{ key }}" src="{{ value }}" class="img-fluid"></a>
+                                            </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                    <div class="tab-content">
+                                        <span class="price">{{ classified.price }} руб.</span>
+                                        <!-- https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#for Перебрал элементы словаря через ключ и значение, см докумеентацию-->
+                                        {% for key, value in item_images.items %}
+                                            {% if key == 1 %}
+                                                <div class="tab-pane fade active show" id="related{{ key }}">
+                                                    <a href="#" class="zoom ex1"><img alt="single" src="{{ value }}" class="img-fluid"></a>
+                                                </div>
+                                            {% endif %}
+                                        <div class="tab-pane fade" id="related{{ key }}">
+                                            <a href="#" class="zoom ex1"><img alt="single" src="{{ value }}" class="img-fluid"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="section-title-left-dark child-size-xl title-bar item-mb">
+                                    <h3>Product Details:</h3>
+                                    <p class="text-medium-dark">{{ classified.description }}
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-7 col-sm-12 col-12">
+                                        <div class="section-title-left-primary child-size-xl">
+                                            <h3>Specification:</h3>
+                                        </div>
+                                        <ul class="specification-layout2 mb-40">
+                                            <li>256GB PCIe flash storage</li>
+                                            <li>2.7 GHz dual-core Intel Core i5 processor</li>
+                                            <li>Turbo Boost up to 3.1GHz</li>
+                                            <li>Intel Iris Graphics 6100</li>
+                                            <li>8GB memory (up from 4GB in 2013 model)</li>
+                                            <li>10 hour battery life</li>
+                                            <li>13.3" Retina Display</li>
+                                            <li>Intect Box</li>
+                                            <li>1 Year international warranty</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4 col-md-5 col-sm-12 col-12 mb--sm">
+                                        <div class="section-title-left-primary child-size-xl">
+                                            <h3>Item Details:</h3>
+                                        </div>
+                                        <ul class="sidebar-item-details p-none">
+                                            <li>Condition:<span>New</span></li>
+                                            <li>Brand:<span>Apple</span></li>
+                                            <li>Color:<span>White</span></li>
+                                            <li>Warranty:<span>1 Year</span></li>
+                                            <li>
+                                                <ul class="sidebar-social">
+                                                    <li>Share:</li>
+                                                    <li><a href="single-product-layout3.html#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                                    <li><a href="single-product-layout3.html#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                                    <li><a href="single-product-layout3.html#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                                    <li><a href="single-product-layout3.html#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul class="item-actions border-top">
+                                    <li><a href="single-product-layout3.html#"><i class="fa fa-heart" aria-hidden="true"></i>Save Ad</a></li>
+                                    <li><a href="single-product-layout3.html#"><i class="fa fa-share-alt" aria-hidden="true"></i>Share ad</a></li>
+                                    <li><a href="single-product-layout3.html#"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Report abuse</a></li>
+                                    <li>Просмотров: {{ classified.views }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-lg-7 col-md-7 col-sm-12 col-12">
+                                <div class="add-layout2-left d-flex align-items-center">
+                                    <div>
+                                        <h2>Do you Have Something To Sell?</h2>
+                                        <h3>Post your ad on classipost.com</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-12 col-12">
+                                <div class="add-layout2-right d-flex align-items-center justify-content-end mb--sm">
+                                    <a href="single-product-layout3.html#" class="cp-default-btn-sm-primary">Post Your Ad Now!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="sidebar-item-box">
+                            <div class="gradient-wrapper">
+                                <div class="gradient-title">
+                                    <h3>Продавец</h3>
+                                </div>
+                                <ul class="sidebar-seller-information">
+                                    <li>
+                                        <div class="media">
+                                            <img src="{% static 'img/user/user1.png' %}" alt="user" class="img-fluid pull-left">
+                                            <div class="media-body">
+                                                <span>Опубликовал</span>
+                                                <h4>{{ classified.author }}</h4>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="media">
+                                            <img src="{% static 'img/user/user2.png'%}" alt="user" class="img-fluid pull-left">
+                                            <div class="media-body">
+                                                <span>Location</span>
+                                                <h4>Gulshan, Dhaka</h4>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="media">
+                                            <img src="{% static 'img/user/user3.png' %}" alt="user" class="img-fluid pull-left">
+                                            <div class="media-body">
+                                                <span>Номер телефона</span>
+                                                <h4>{{ classified.phone }}</h4>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="media">
+                                            <img src="{% static 'img/user/user4.png' %}" alt="user" class="img-fluid pull-left">
+                                            <div class="media-body">
+                                                <span>Want To Live Chat</span>
+                                                <h4>Chat Now!</h4>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="media">
+                                            <img src="{% static 'img/user/user5.png' %}" alt="user" class="img-fluid pull-left">
+                                            <div class="media-body">
+                                                <span>User Type</span>
+                                                <h4>Verified</h4>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sidebar-item-box">
+                            <div class="gradient-wrapper">
+                                <div class="gradient-title">
+                                    <h3>Другие объявления автора</h3>
+                                </div>
+                                <ul class="sidebar-ads-from-user">
+                                    {% for user_classified in user_classifieds %}
+
+                                            <li>
+                                                <div class="media">
+                                                    <a href="{{ user_classified.get_absolute_url }}" class=" pull-left"><img src="{{ user_classified.images.first.get_src }}" alt="categories" class="img-fluid"></a>
+                                                    <div class="media-body">
+                                                        <h4><a href="{{ user_classified.get_absolute_url }}">{{ user_classified.title }}</a></h4>
+                                                        <div class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney</div>
+                                                        <div class="price">{{ user_classified.price }} ₽</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sidebar-item-box">
+                            <div class="gradient-wrapper">
+                                <div class="gradient-title">
+                                    <h3>Safety Tips for Buyers</h3>
+                                </div>
+                                <ul class="sidebar-safety-tips">
+                                    <li>Meet seller at a public place</li>
+                                    <li>Check The item before you buy</li>
+                                    <li>Pay only after collecting The item</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Product Area End Here -->
+{% endblock %}

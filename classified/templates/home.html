@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+            <!-- Featured Area Start Here -->
+        <section class="bg-accent fixed-menu-mt featured-product-area item-pb">
+            <div class="container">
+                <div class="row featured-product-inner-area zoom-gallery">
+                    <div class="order-xl-2 order-lg-2 col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12 mb--sm">
+                        <div class="input-group stylish-input-group">
+                            <input type="text" class="form-control" placeholder="What You Are Looking For . . .">
+                            <span class="input-group-addon">
+                                <button type="submit">
+                                    <span class="fa fa-search"></span>
+                            </button>
+                            </span>
+                        </div>
+                        <div class="section-title-left-dark title-bar mt-20 mb-40">
+                            <h2>Популярные объявления</h2>
+                        </div>
+
+                        <div class="cp-carousel nav-control-top category-grid-layout2" data-loop="true" data-items="3" data-margin="30" data-autoplay="false" data-autoplay-timeout="10000" data-smart-speed="2000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="true" data-r-x-small-dots="false" data-r-x-medium="3" data-r-x-medium-nav="true" data-r-x-medium-dots="false" data-r-small="3" data-r-small-nav="true" data-r-small-dots="false" data-r-medium="2" data-r-medium-nav="true" data-r-medium-dots="false" data-r-large="3" data-r-large-nav="true" data-r-large-dots="false">
+						{% for classified in most_viewed %}
+                            <div class="product-box item-mb zoom-gallery">
+                                <div class="item-mask-wrapper">
+                                    <div class="item-mask bg-body"><img src="{{ classified.images.first.get_src }}" alt="categories" class="img-fluid">
+                                        <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                        <div class="title-ctg">{{ classified.category }}</div>
+                                        <ul class="info-link">
+                                            <li><a href="{{ classified.images.first.get_src }}" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                            <li><a href="{{ classified.get_absolute_url }}"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                        </ul>
+                                        <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                    </div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="title-ctg">{{ classified.category }}</div>
+                                    <h3 class="short-title"><a href="{{ classified.get_absolute_url }}">{{ classified.title }}</a></h3>
+                                    <h3 class="long-title"><a href="{{ classified.get_absolute_url }}">Bluetooth Headphones Over Ear Stereo Wireless Headset</a></h3>
+                                    <ul class="upload-info">
+                                        <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>07 Mar, 2017</li>
+                                        <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>Sydney, Australia</li>
+                                        <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                    </ul>
+                                    <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                    <div class="price">{{ classified.price }} руб.</div>
+                                    <a href="{{ classified.get_absolute_url }}" class="product-details-btn">Details</a>
+                                </div>
+                            </div>
+						{% endfor %}
+                        </div>
+                    </div>
+
+            {% include 'includes/sidebar.html' %}
+                </div>
+            </div>
+        </section>
+        <!-- Featured Area End Here -->
+    <!-- Products Area Start Here -->
+        <section class="bg-accent s-space-custom4">
+            <div class="container">
+                <div class="section-title-left-dark title-bar mb-40">
+                    <h2>Недавно добавленные</h2>
+                </div>
+                <div class="row category-grid-layout2 zoom-gallery">
+                    {% for classified in classifieds %}
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="product-box item-mb zoom-gallery">
+                            <div class="item-mask-wrapper">
+                                <div class="item-mask bg-body">
+                                    <img src="{{ classified.images.first.get_src }}" alt="categories" class="img-fluid">
+                                    <div class="trending-sign" data-tips="Featured"> <i class="fa fa-bolt" aria-hidden="true"></i> </div>
+                                    <div class="title-ctg">{{ classified.category }}</div>
+                                    <ul class="info-link">
+                                        <li><a href="{{ classified.images.first.get_src }}" class="elv-zoom" data-fancybox-group="gallery" title="Title Here"><i class="fa fa-arrows-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="{{ classified.get_absolute_url }}"><i class="fa fa-link" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                    <div class="symbol-featured"><img src="img/banner/symbol-featured.png" alt="symbol" class="img-fluid"> </div>
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <div class="title-ctg">Clothing</div>
+                                <h3 class="short-title"><a href="{{ classified.get_absolute_url }}">{{ classified.title }}</a></h3>
+                                <h3 class="long-title"><a href="{{ classified.get_absolute_url }}">MMK collection Women Fashion Matching Satchel handbags</a></h3>
+                                <ul class="upload-info">
+                                    <li class="date"><i class="fa fa-clock-o" aria-hidden="true"></i>{{ classified.create_date|date:"d, M  Y" }}</li>
+                                    <li class="place"><i class="fa fa-map-marker" aria-hidden="true"></i>{{ classified.price }} ₽</li>
+                                    <li class="tag-ctg"><i class="fa fa-tag" aria-hidden="true"></i>Clothing</li>
+                                </ul>
+                                <p>Eimply dummy text of the printing and typesetting industrym has been the industry's standard dummy.</p>
+                                <div class="price"></div>
+                                <a href="{{ classified.get_absolute_url }}" class="product-details-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    <!-- Products Area End Here -->
+{% endblock %}
