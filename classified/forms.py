@@ -23,8 +23,10 @@ class AdminImageWidget(AdminFileWidget):
             image_url = value.url
             file_name = str(value)
             output.append(u' <a href="%s" target="_blank"><img src="%s" alt="%s" /></a>' %(image_url, image_url, file_name))
-        output.append(super(AdminFileWidget, self).render(name, value, attrs, renderer))
-        return mark_safe(u''.join(output))
+            return mark_safe(u''.join(output))
+        else:
+            return mark_safe(u''.join(super(AdminFileWidget, self).render(name, value, attrs, renderer)))
+            #output.append(super(AdminFileWidget, self).render(name, value, attrs, renderer))
 
 class ImageClassifiedForm(ModelForm):
     image = forms.FileField(widget=AdminImageWidget, label='')
@@ -36,6 +38,6 @@ class ImageClassifiedForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ImageClassifiedForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'form-control photo-upload'
 
 #AddClassifiedFormSet = inlineformset_factory(Classified, ClassifiedImages, fields = ['image'], extra=3, can_delete=False, can_order=False,)

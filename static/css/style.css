@@ -6288,3 +6288,18 @@ ul.sidebar-ads-from-user li .price {
 .password_reset input:focus {
   box-shadow: none;
 }
+
+.photo-upload {
+  opacity: 0;
+  min-height: 120px;
+  cursor: pointer;
+}
+
+.photo-upload-block {
+  background-image: url(../img/addphoto.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  min-height: 120px;
+  border: 1px solid #cccccc;
+}

@@ -446,6 +446,60 @@
     <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
     <!-- Custom Js -->
     <script src="{% static 'js/main.js' %}" defer></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+        <script>
+            // Здесь представлена реализация для добавления нового объявления, фото не загружаются в базу сразу, а храняться в браузере, и только после отправки формы отправляются.
+            let my_count_id = 0;
+            //Т.к Джанго изначально выводит hidden инпуты с мета информацией, и количеством форм. Будем менять количество форм в этой мета инфорации, при добавлении новых фото. Только так джанго считает наши добавленные лишними инпуты и сохранит изображения в базу.
+            let my_count_forms = 1;
+            $('#image-add-items').on('change', '.photo-upload', function (event) {
+                    let my_return = handleFiles(this.files);
+                    //$(this).css('background-image', `url($(str_my_return))`);
+                    let add_photo_block = $(this).closest(".form-group");
+                    add_photo_block.attr('style', 'background-image: url('+ my_return +');' );
+                    $('#id_form-TOTAL_FORMS').attr('value', my_count_forms);
+            });
+              function handleFiles(files) {
+                    console.log(files);
+                    for (let i = 0; i < files.length; i++) {
+                         console.log(files[i]);
+                          let url_image = window.URL.createObjectURL(files[i]);
+                          //img.onload = function() {
+                          //  window.URL.revokeObjectURL(this.src);
+                          //}
+                          ++my_count_id;
+                          ++my_count_forms;
+                          let add_image_block = `<div class="col-sm-3 image-block image-block-add"><div class="form-group photo-upload-block"><input type="file" name="form-${my_count_id}-image" class="form-control photo-upload" id="id_form-${my_count_id}-image"><input type="hidden" name="form-${my_count_id}-id" id="id_form-${my_count_id}-id"></div></div>`;
+                          $('.image-block:first').before(add_image_block);
+                          return url_image;
+                    }
+
+                }
+        </script>
+        <script>
+            // Здесь же в отличие от добавление нового объявления, реализация представлена для редактирования объявления. Здесь изображения моментально в базу загружаются. Да это не практично, но оставил как вариант, для примера, когда это будет необходимо в других случаях.
+            $(document).ready(function () {
+                let add_photo_block = $(".photo-upload").closest(".form-group");
+                add_photo_block.addClass('photo-upload-block');
+                $('.image-block-edit .photo-upload').on('change', function () {
+                    let form = $('#post-edit-form');
+                    //Использовал эту инструкцию https://stackoverflow.com/questions/49921422/send-file-to-django-througth-ajax, и плагин http://malsup.com/jquery/form/#api
+                    options = {
+                        url: form.attr('action'),
+                        type: 'POST',
+                        success: function(response) {
+                            let url_image = response.new_image_url;
+                            let add_image_block = `<div class="col-sm-3 image-block new-added"><div class="form-group"><a href="${url_image}" target="_blank"><img src="${url_image}" /></a><input type="hidden" name="form-0-id" value="11" id="id_form-0-id"></td></tr></div></div>`;
+                            $('.image-block:first').before(add_image_block);
+                            }
+                        };
+                    form.ajaxSubmit(options);
+                    //Далее мы очищаем инпут наш, чтобы при сохранении формы, не дублировалось уже загруженное изображение
+                    // ВАЖНО РАССМОТРЕТЬ, ВОЗМОЖНО СДЕЛАТЬ ЗАГРУЗКУ ЧЕРЕЗ TEMPORARY файлз, типа вдруг пользователь решит не сохранять отредактированное объявление.
+                    $('.photo-upload').val('');
+                })
+            })
+        </script>
 </body>
 
 </html>

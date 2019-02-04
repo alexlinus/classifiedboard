@@ -37,7 +37,16 @@
                                                 {{ field }}
                                             </div>
                                         {% endfor %}
-                                        {{ formset.as_p }}
+                                        <div class="row" id="image-add-items">
+                                        {{ formset.management_form }}
+                                        {% for field in formset %}
+                                            <div class="col-sm-3 image-block image-block-add">
+                                                 <div class="form-group">
+                                                    {{ field }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        </div>
                                         <input type="submit" class="cp-default-btn-sm" value="Опубликовать">
                                     </form>
                             {% endif %}
