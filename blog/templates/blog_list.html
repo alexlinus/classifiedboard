@@ -45,6 +45,27 @@
                         </div>
                     </div>
                 </div>
+                        <div class="gradient-wrapper mb-60">
+                            <ul class="cp-pagination">
+                                {% if posts.has_previous %}
+                                    <li><a href="?page={{ posts.previous_page_number }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Предыдущая страница</a></li>
+                                {% else %}
+                                    <li class="disabled"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Предыдущая страница</li>
+                                {% endif %}
+                                {% for p in page_range %}
+                                    {% if p == posts.number %}
+                                        <li class="active"><a href="?page={{ p }}">{{ p }}</a></li>
+                                    {% else %}
+                                        <li><a href="?page={{ p }}">{{ p }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if posts.has_next %}
+                                    <li><a href="?page={{ posts.next_page_number }}">Следующая страница<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                {% else %}
+                                    <li class="disabled">Следующая страница<i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+                                {% endif %}
+                            </ul>
+                        </div>
             </div>
         </section>
         <!-- About Area End Here -->

@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home_url'),
+    path(r'dialog/', include('user_messages.urls')),
     path('add_classified/', views.add_classified, name='add_classified_url'),
     path('category/', include('category.urls')),
     path('classified/', include('classified.urls')),

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-
+{% block seo_title %}{{ site_config.seo_title }}{% endblock %}
+{% block seo_description %}{{ site_config.seo_description }}{% endblock %}
 {% block content %}
             <!-- Featured Area Start Here -->
         <section class="bg-accent fixed-menu-mt featured-product-area item-pb">

@@ -6303,3 +6303,27 @@ ul.sidebar-ads-from-user li .price {
   min-height: 120px;
   border: 1px solid #cccccc;
 }
+
+.first-user {
+  background-color: #139e81;
+  color: #FFFFFF;
+  display: block;
+  float: right;
+  width: 51%;
+  padding: 10px;
+  border-radius: 20px;
+}
+.second-user {
+  background-color: #FFFFFF;
+  display: block;
+  float: left;
+  width: 52%;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.dialog-wrapper {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+}

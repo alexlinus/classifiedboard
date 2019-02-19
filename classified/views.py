@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render, redirect
 from .models import Classified, ClassifiedImages
@@ -99,8 +100,25 @@ def get_register(request):
 
 def get_user_classifieds(request):
     if request.user.is_authenticated:
-        user_classifieds = Classified.objects.filter(author=request.user)
-        return render(request, 'user_classifieds.html', context={'user_classifieds': user_classifieds})
+        user_classifieds_all = Classified.objects.filter(author=request.user)
+        classifieds_paginator = Paginator(user_classifieds_all, 6)
+        page = request.GET.get('page')
+        try:
+            user_classifieds = classifieds_paginator.page(page)
+        except:
+            user_classifieds = classifieds_paginator.page(1)
+
+        current_page = user_classifieds.number - 1  # возвращает минимум 1, а так как у нас индексы с 0 начинаются, ,поэтому отнимаем 1
+        start_index = current_page - 3
+        if start_index < 0:
+            start_index = 0
+        max_pages = classifieds_paginator.num_pages  # то же самое как и с currentp_page4
+        end_index = current_page + 3
+        if end_index > max_pages:
+            end_index = max_pages
+        page_range = list(classifieds_paginator.page_range)[start_index:end_index]
+
+        return render(request, 'user_classifieds.html', context={'user_classifieds': user_classifieds, 'page_range': page_range})
     else:
         raise Http404
 

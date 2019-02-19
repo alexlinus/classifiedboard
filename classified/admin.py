@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Classified, ClassifiedImages
+from .models import Classified, ClassifiedImages, SiteConfiguration
 # Register your models here.
 
 class ClassifiedImagesInline(admin.TabularInline):
@@ -22,3 +22,8 @@ class ClassifiedImagesAdmin(admin.ModelAdmin):
         model = ClassifiedImages
 
 admin.site.register(ClassifiedImages, ClassifiedImagesAdmin)
+
+
+from solo.admin import SingletonModelAdmin
+
+admin.site.register(SiteConfiguration, SingletonModelAdmin)

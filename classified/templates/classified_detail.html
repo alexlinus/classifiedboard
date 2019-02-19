@@ -160,8 +160,8 @@
                                         <div class="media">
                                             <img src="{% static 'img/user/user4.png' %}" alt="user" class="img-fluid pull-left">
                                             <div class="media-body">
-                                                <span>Want To Live Chat</span>
-                                                <h4>Chat Now!</h4>
+                                                <span>Онлайн чат</span>
+                                                <h4><a href="{% if user != classified.author %}{% url 'dialog_url' user classified.author%}{% endif %}" >Написать продавцу!</a></h4>
                                             </div>
                                         </div>
                                     </li>

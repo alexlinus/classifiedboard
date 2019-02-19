@@ -5,7 +5,11 @@ from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 # Create your views here.
 
+def my_test_func():
+    print('Сработало!')
+
 def get_category(request, category_slug):
+    my_test_func()
     category = get_object_or_404(Category, slug__iexact=category_slug, is_active=True)
     all_classifieds = Classified.objects.filter(category=category)
     classifieds_paginator = Paginator(all_classifieds, 6)

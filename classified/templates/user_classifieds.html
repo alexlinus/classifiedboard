@@ -237,18 +237,27 @@
                                                    {% endfor %}
 
 
-                                       <div class="gradient-wrapper mb--xs mb-30 border-none">
-                                           <ul class="cp-pagination">
-                                               <li class="disabled"><a href="my-account.html#"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Previous</a></li>
-                                               <li class="active"><a href="my-account.html#">1</a></li>
-                                               <li><a href="my-account.html#">2</a></li>
-                                               <li><a href="my-account.html#">3</a></li>
-                                               <li><a href="my-account.html#">4</a></li>
-                                               <li><a href="my-account.html#">5</a></li>
-                                               <li><a href="my-account.html#">6</a></li>
-                                               <li><a href="my-account.html#">Next<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-                                           </ul>
-                                       </div>
+                                            <div class="gradient-wrapper mb-60">
+                                                <ul class="cp-pagination">
+                                                    {% if user_classifieds.has_previous %}
+                                                        <li><a href="?page={{ user_classifieds.previous_page_number }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Предыдущая страница</a></li>
+                                                    {% else %}
+                                                        <li class="disabled"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Предыдущая страница</li>
+                                                    {% endif %}
+                                                    {% for p in page_range %}
+                                                        {% if p == user_classifieds.number %}
+                                                            <li class="active"><a href="?page={{ p }}">{{ p }}</a></li>
+                                                        {% else %}
+                                                            <li><a href="?page={{ p }}">{{ p }}</a></li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    {% if user_classifieds.has_next %}
+                                                        <li><a href="?page={{ user_classifieds.next_page_number }}">Следующая страница<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                                    {% else %}
+                                                        <li class="disabled">Следующая страница<i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
                                    </div>
                                </div>
                             </div>

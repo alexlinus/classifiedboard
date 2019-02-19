@@ -3,7 +3,20 @@ from django.conf import settings
 from category.models import Category
 from autoslug import AutoSlugField
 from django.shortcuts import reverse
+from solo.models import SingletonModel
+from pages.models import Pages
 # Create your models here.
+
+class SiteConfiguration(SingletonModel):
+    class Meta:
+        verbose_name = 'Настройки сайта'
+
+    our_title = models.CharField(max_length=150, blank=True, null=True, verbose_name='Название магазина')
+    our_phone = models.CharField(max_length=100, blank=True, null=True, verbose_name='Телефон магазина')
+    seo_title = models.CharField(max_length=200, blank=True, null=True, verbose_name='SEO заголовок')
+    seo_description = models.TextField(max_length=240, verbose_name='SEO описание')
+    pages_menu = models.ManyToManyField(Pages, verbose_name='Страницы в меню')
+    blog_active = models.BooleanField(default=False, verbose_name='Актировать блог')
 
 class Classified(models.Model):
     category = models.ForeignKey(Category, verbose_name='Категория', related_name='category_classifieds', on_delete=models.CASCADE, blank=False, null=False)
