@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="s-space-bottom-full bg-accent-shadow-body" style="margin-top: 200px;">
+    <div class="container">
+        <div class='row'>
+            <div class="col-12">
+                <div class="dialog-wrapper">
+                    {% if dialog_items %}
+                        {% for message in dialog_items %}
+                            {% if message.from_user == from_user %}
+                                <p class="first-user">{{ message.message_body }}<br/>От: {{ message.from_user }} - {{ message.message_date }}</p>
+                            {% else %}
+                                <p class="second-user">{{ message.message_body }}<br/>От: {{ message.from_user }} - {{ message.message_date }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% for field in message_form %}
+            <form action="{% url 'dialog_url' from_user to_user %}" method="POST" id="post-edit-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field.error_messages }}
+                    {{ field }}
+                </div>
+                <input type="submit" class="cp-default-btn-sm" value="Опубликовать">
+            </form>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

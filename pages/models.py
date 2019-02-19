@@ -18,3 +18,6 @@ class Pages(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('get_page_detail_url', kwargs={'page_slug': self.slug })
